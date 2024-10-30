@@ -13,8 +13,13 @@ public class GameManager : MonoBehaviour
     Text txtCom;        // the score computer win
     Text txtResult;     // the result
 
-    int cntYou = 3;     // your life
-    int cntCom = 3;     // computer life
+    int cntYou = 0;     // your scores
+    int cntCom = 0;     // computer's scores
+    enum GameState {
+        LOSE,
+        WIN,
+
+    };
     void CheckResult(int yourResult)
     {
         // algorithm determine the result
@@ -34,9 +39,16 @@ public class GameManager : MonoBehaviour
                 cntCom++;
                 txtResult.text = "Computer win.";
                 break;
-            
+
         }
         SetResult(yourResult, comResult);    // set game result to UI
+        if(cntYou >= 3)  {
+            GameOver(GameState.WIN);
+        }
+
+        if(cntCom >= 3)  {
+            GameOver(GameState.LOSE);
+        }
     }
     void SetResult(int you, int com)
     {
@@ -54,6 +66,7 @@ public class GameManager : MonoBehaviour
         // play text animation
         //txtResult.GetComponent<Animator>().Play("TextScale", -1, 0);
     }
+
 
     public void OnButtonClick(GameObject buttonObject)
     {
@@ -86,14 +99,20 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void GameOver () { 
-        
+    private void GameOver (GameState state) {
+        if(state == GameState.WIN) {
+            SceneManager.LoadScene("MenuScene");
+        }
+        else if(state == GameState.LOSE) {
+            SceneManager.LoadScene("MenuScene");
+        }
+
     }
     // Start is called before the first frame update
     void Start()
     {
         // init the game
-        InitGame();    
+        InitGame();
     }
 
     // Update is called once per frame
@@ -106,7 +125,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void BackToMenu(){ 
+    public void BackToMenu(){
         SceneManager.LoadScene("MenuScene");
     }
 }
