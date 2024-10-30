@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
             GameOver(GameState.LOSE);
         }
     }
+
     void SetResult(int you, int com)
     {
         // change image
