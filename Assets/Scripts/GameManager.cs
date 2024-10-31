@@ -75,8 +75,8 @@ public class GameManager : MonoBehaviour {
     // winning score
     txtYou.text = cntYou.ToString();
     txtCom.text = cntCom.ToString();
-    if(cntYou >=3) SceneManager.LoadScene("YouWin");
-    if(cntCom >=3) SceneManager.LoadScene("YouLose");
+    if(cntYou >=3) SceneManager.LoadScene("YouWinScene");
+    if(cntCom >=3) SceneManager.LoadScene("YouLoseScene");
     txtRound.text = "Round " + round.ToString();
     // delay for 3 seconds
     StartCoroutine(DelayAction(2, StartRound));
