@@ -8,7 +8,6 @@ public class TitleEffect : MonoBehaviour {
   // Start is called before the first frame update
   // Update is called once per frame
   void Update() {
-    Debug.Log(textComponent);
     textComponent.ForceMeshUpdate();
     var textInfo = textComponent.textInfo;
     for (int i = 0; i < textInfo.characterCount; i++) {
