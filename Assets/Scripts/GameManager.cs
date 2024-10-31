@@ -25,9 +25,10 @@ public class GameManager : MonoBehaviour {
     STARTING,
     CHOOSING,
     RESULT,
-  }
-  ;
+  };
 
+
+  bool isDraw = false;
   void Start() {
     // init the game
     InitGame();
@@ -43,24 +44,26 @@ public class GameManager : MonoBehaviour {
 
   void CheckResult(int yourResult) {
     // algorithm determine the result
-
+    isDraw = false;
     int comResult = UnityEngine.Random.Range(1, 4);
     int k = yourResult - comResult;
     switch (k) {
     case 0:
-      txtResult.text = "Draw.";
+      isDraw = true;
+      txtResult.text = "Draw!!!";
       break;
     case 1:
     case -2:
       cntYou++;
+      round++;
       txtResult.text = "You win.";
       break;
     default:
       cntCom++;
+      round++;
       txtResult.text = "Computer win.";
       break;
     }
-    round++;
     SetResult(yourResult, comResult); // set game result to UI
   }
 
@@ -78,9 +81,15 @@ public class GameManager : MonoBehaviour {
     if(cntYou >=3) SceneManager.LoadScene("YouWinScene");
     if(cntCom >=3) SceneManager.LoadScene("YouLoseScene");
     txtRound.text = "Round " + round.ToString();
+
+
+    if(isDraw) {
+        state = GameState.CHOOSING;
+        return;
+    }
     // delay for 3 seconds
-    StartCoroutine(DelayAction(2, StartRound));
     // StartRound();
+    StartCoroutine(DelayAction(2, StartRound));
   }
 
   public void OnButtonClick(GameObject buttonObject) {

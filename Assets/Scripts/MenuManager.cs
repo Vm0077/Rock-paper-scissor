@@ -12,6 +12,9 @@ public class MenuManager : MonoBehaviour
     public void OnStartGame() {
         SceneManager.LoadScene("GameScene");
     }
+    public void OnReturntoMenu() {
+        SceneManager.LoadScene("MenuScene");
+    }
     public void OnExit() {
         Application.Quit();
         Debug.Log("Quit");
